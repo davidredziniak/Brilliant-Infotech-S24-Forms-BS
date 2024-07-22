@@ -7,21 +7,22 @@
     <title>Employee Web Page - Bootstrap</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function () {
+        // Inject event listeners into elements when they fully load
+        document.addEventListener('DOMContentLoaded', function () {
+            
             // Check id input
-            $('#eid').on('keypress', function (event) {
+            document.getElementById('eid').addEventListener('keypress', function (event) {
                 var regex = new RegExp("^[0-9]+$");
                 var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-                if (!regex.test(key) || $(this).val().length >= 8) {
+                if (!regex.test(key) || this.value.length >= 8) {
                     event.preventDefault();
                     return false;
                 }
             });
 
             // Check name input
-            $('#ename').on('keypress', function (event) {
+            document.getElementById('ename').addEventListener('keypress', function (event) {
                 var regex = new RegExp("^[a-zA-Z ]+$");
                 var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
                 if (!regex.test(key)) {
@@ -31,7 +32,7 @@
             });
 
             // Check email input
-            $('#eemail').on('keypress', function (event) {
+            document.getElementById('eemail').addEventListener('keypress', function (event) {
                 var regex = new RegExp("^[a-zA-Z0-9._%+@\-]+$");
                 var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
                 if (!regex.test(key)) {
@@ -41,7 +42,7 @@
             });
 
             // Check SSN input, limit to numbers and 4 character length
-            $('#ssn').on('keypress', function (event) {
+            document.getElementById('ssn').addEventListener('keypress', function (event) {
                 var regex = new RegExp("^[0-9]+$");
                 var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
                 if (!regex.test(key) || $(this).val().length >= 4) {
@@ -49,9 +50,9 @@
                     return false;
                 }
             });
-
         });
-        
+
+
         function validate(form) {
             let id = form.eid.value;
             let name = form.ename.value;
@@ -97,7 +98,7 @@
             }
 
             // Name validation using regex
-            if (!/^[a-zA-Z ]+$/.test(name)){
+            if (!/^[a-zA-Z ]+$/.test(name)) {
                 alert("Name: " + name + " is invalid.");
                 return false;
             }
@@ -107,9 +108,9 @@
                 alert("Email: " + email + " is invalid.")
                 return false;
             }
-            
+
             // SSN validation
-            if(ssn.length > 4 || !/^[0-9]+$/.test(ssn)){
+            if (ssn.length > 4 || !/^[0-9]+$/.test(ssn)) {
                 alert("SSN is invalid.");
                 return false;
             }
@@ -128,7 +129,8 @@
             <!-- ID uses an input element with type 'text' in order to use a pattern that requires 8 numbers-->
             <div class="mt-3">
                 <label for="eid">ID:</label>
-                <input type="text" id="eid" class="form-control mt-1" pattern="[0-9]{8}" placeholder="Your 8 digit Employee ID.." required>
+                <input type="text" id="eid" class="form-control mt-1" pattern="[0-9]{8}"
+                    placeholder="Your 8 digit Employee ID.." required>
                 <br>
             </div>
             <!-- Name uses an input element with type 'text' to indicate that input only allows for text with a specified pattern to allow for only letters and spaces-->
@@ -141,7 +143,8 @@
             <!-- Email uses an input element with type 'email' to indicate that input only allows for emails (predefined pattern in HTML5) -->
             <div>
                 <label for="email">Email:</label>
-                <input type="text" id="email" class="form-control mt-1" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" placeholder="Enter your email..."
+                <input type="text" id="email" class="form-control mt-1"
+                    pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" placeholder="Enter your email..."
                     required>
                 <br>
             </div>
@@ -178,14 +181,15 @@
                     <label for="ssn">Last four of SSN:</label>
                 </div>
                 <div class="col">
-                    <input type="password" id="ssn" class="form-control" pattern="[0-9]{4}" placeholder="ex. 4839" required>
+                    <input type="password" id="ssn" class="form-control" pattern="[0-9]{4}" placeholder="ex. 4839"
+                        required>
                 </div>
             </div>
             <!-- Submit button to allow the client to be able to send all user input to the server for processing -->
             <div class="row">
                 <div class="col"></div><!-- This is a filler column -->
                 <div class="col-auto"><input type="submit" class="btn btn-primary" value="Submit"></div>
-              </div>
+            </div>
         </form>
     </div>
 </body>
